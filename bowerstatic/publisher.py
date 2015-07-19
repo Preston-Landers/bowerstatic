@@ -19,11 +19,13 @@ class PublisherTween(object):
 
     def __call__(self, request):
         # first segment should be publisher signature
-        publisher_signature = request.path_info_peek()
+        publisher_signature = request.path_info[1:][:len(self.bower.publisher_signature)]
         # pass through to underlying WSGI app
         if publisher_signature != self.bower.publisher_signature:
             return self.handler(request)
-        request.path_info_pop()
+        # pop off the entire publisher signature
+        for ignored_signature_part in self.bower.publisher_signature.split("/"):
+            request.path_info_pop()
         # next segment is BowerComponents name
         bower_components_name = request.path_info_pop()
         if bower_components_name is None:
