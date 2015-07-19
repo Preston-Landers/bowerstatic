@@ -12,11 +12,12 @@ from .renderer import Renderer
 class Bower(object):
     """Contains a bunch of bower_components directories.
     """
-    def __init__(self, publisher_signature='bowerstatic', autoversion=None):
+    def __init__(self, publisher_signature='bowerstatic', autoversion=None, inject_point=None):
         self.publisher_signature = publisher_signature
         self._component_collections = {}
         self._renderer = Renderer()
         self.autoversion = autoversion or filesystem_second_autoversion
+        self.inject_point = inject_point or b'</head>'
 
     def components(self, name, path):
         if name in self._component_collections:
