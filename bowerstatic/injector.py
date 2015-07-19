@@ -22,9 +22,14 @@ class InjectorTween(object):
         if inclusions is None:
             return response
         body = response.body
+        inject_pt = self.bower.inject_point
+        head_tag = b'</head>'
+        if inject_pt != head_tag and body.find(inject_pt) == -1:
+            inject_pt = head_tag
+
         response.body = b''
-        rendered_inclusions = (inclusions.render() + '</head>').encode('utf-8')        
-        body = body.replace(b'</head>', rendered_inclusions)
+        rendered_inclusions = (inclusions.render() + inject_pt).encode('utf-8')
+        body = body.replace(inject_pt, rendered_inclusions)
         response.write(body)
         return response
 
