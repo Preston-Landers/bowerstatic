@@ -6,6 +6,7 @@ CHANGES
 
 - Do not crash when a version information is missing in bower.json.
 
+- Fix to ``module_relative_path`` to make sure it is always absolute.
 
 0.9 (2015-06-23)
 ================
@@ -39,8 +40,9 @@ CHANGES
   http://bowerstatic.readthedocs.org/en/latest/integrating.html#supporting-additional-types-of-resources
 
 - Breaking change: renderers will receive the ``resource`` argument
-  instead of the url. Renderers can be used to render resources
-  inline.
+  instead of the url. Use `bower.register_renderer` instead of
+  `bower.renderer` to register a renderer. Renderers can be used to
+  render resources inline.
 
 0.7 (2014-11-15)
 ================
